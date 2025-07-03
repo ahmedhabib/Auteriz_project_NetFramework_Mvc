@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Autheriz_Project.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using Autheriz_Project.Models;
+using System;
 
 namespace Autheriz_Project
 {
@@ -63,6 +64,62 @@ namespace Autheriz_Project
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+            createRolesandUsers();
+        }
+
+
+        public void createRolesandUsers()
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            // In Startup iam creating first Admin Role and creating a default Admin User     
+            if (!roleManager.RoleExists("Admin"))
+            {
+
+                // first we create Admin rool    
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "Admin";
+                roleManager.Create(role);
+
+                //Here we create a Admin super user who will maintain the website                   
+
+                var user = new ApplicationUser();
+                user.UserName = "admin";
+                user.Email = "Admin@gmail.com";
+                user.Branch_id = 9;
+
+                string userPWD = "123456";
+
+                var chkUser = UserManager.Create(user, userPWD);
+
+                //Add default User to Role Admin    
+                if (chkUser.Succeeded)
+                {
+                    UserManager.AddToRole(user.Id, "Admin");
+
+                }
+            }
+
+
+            string[] roles = { "Manager", "codeing", "supervisor", "IT", "Report", "Movements"};
+
+            foreach (var item in roles)
+            {
+
+                // creating Creating Manager role     
+                if (!roleManager.RoleExists(item))
+                {
+                    var role = new IdentityRole();
+                    role.Name = item;
+                    roleManager.Create(role);
+
+                }
+
+
+            }
         }
     }
 }

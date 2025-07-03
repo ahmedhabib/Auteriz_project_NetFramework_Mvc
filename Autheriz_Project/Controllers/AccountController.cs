@@ -15,6 +15,8 @@ namespace Autheriz_Project.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+
+        private ApplicationDbContext _context = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -50,6 +52,66 @@ namespace Autheriz_Project.Controllers
             {
                 _userManager = value;
             }
+        }
+
+
+
+
+
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult CreateNewUser()
+        {
+
+            ViewBag.Branch_Id = new SelectList(_context.Branches.ToList(), "Branch_Id", "Branch_Name");
+
+            return View();
+        }
+        /// <summary>
+        ///دالة انشاء موظف جديد
+        ///, List<HttpPostedFileBase> aa
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        //دالة انشاء موظف جديد
+        // POST: /Account/Register
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateNewUser(CreateNewUserViewModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, PhoneNumber = model.PhoneNumber, Full_Name = model.Full_Name ,Branch_id=model.Branch_Id};
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    foreach (string item in model.RolesName)
+                    {
+                        var result1 = UserManager.AddToRole(user.Id, item);//هيضيف المستخدم ل  Role
+
+                    }
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false); //مش محتاجها لان انا لما اعمل مستخدم مش هدخل ب الuser بتاعه
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    // return RedirectToAction("Index", "Home");
+
+                    return RedirectToAction("Index", "Users");
+                }
+                AddErrors(result);
+            }
+            ViewBag.Branch_Id = new SelectList(_context.Branches.ToList(), "Branch_Id", "Branch_Name", model.Branch_Id);
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         //

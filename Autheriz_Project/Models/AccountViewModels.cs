@@ -49,8 +49,8 @@ namespace Autheriz_Project.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
+        [Display(Name = "UserName")]
+     
         public string Email { get; set; }
 
         [Required]
@@ -84,7 +84,7 @@ namespace Autheriz_Project.Models
     public class ResetPasswordViewModel
     {
         [Required]
-        [EmailAddress]
+      
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -105,8 +105,69 @@ namespace Autheriz_Project.Models
     public class ForgotPasswordViewModel
     {
         [Required]
+      
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+    }
+
+
+    public class UsersRoles
+    {
+
+        public ApplicationUser User { get; set; }
+        public List<string> Roles { get; set; }
+
+    }
+
+
+    public class UsersRolesEdit
+    {
+
+        public string Userid { get; set; }
+        public List<string> Roles { get; set; }
+
+    }
+    public class CreateNewUserViewModel
+    {
+        // [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "يجب ادخال اسم المستخدم")]
+
+        [Display(Name = "اسم المستخدم")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = " يجب ادخال اسم المستخدم بالكامل")]
+        [Display(Name = "الاسم بالكامل")]
+        public string Full_Name { get; set; }
+
+        [Required(ErrorMessage = "يجب ادخال رقم الهاتف")]
+        [Display(Name = "رقم الهاتف")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+
+        [Required(ErrorMessage = " يجب ادخال نوع الموظف")]
+        [Display(Name = "نوع الموظف")]
+        public List<string> RolesName { get; set; }
+        [Required(ErrorMessage = " يجب ادخال فرع الموظف")]
+
+        [Display(Name = "فرع الموظف")]
+
+        public int Branch_Id { get; set; }
+
+
     }
 }

@@ -102,9 +102,9 @@ D:\My learn work\Autheriz_Project\Autheriz_Project\bin\Microsoft.Owin.Security.M
 D:\My learn work\Autheriz_Project\Autheriz_Project\bin\Microsoft.Owin.Security.OAuth.xml
 D:\My learn work\Autheriz_Project\Autheriz_Project\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\My learn work\Autheriz_Project\Autheriz_Project\obj\Debug\Autheriz_Project.csproj.AssemblyReference.cache
-D:\My learn work\Autheriz_Project\Autheriz_Project\obj\Debug\Autheriz_Project.csproj.CoreCompileInputs.cache
-D:\My learn work\Autheriz_Project\Autheriz_Project\obj\Debug\Autheriz_Project.csproj.CopyComplete
-D:\My learn work\Autheriz_Project\Autheriz_Project\obj\Debug\Autheriz_Project.dll
-D:\My learn work\Autheriz_Project\Autheriz_Project\obj\Debug\Autheriz_Project.pdb
 D:\My learn work\Autheriz_Project\Autheriz_Project\obj\Debug\Autheriz_Project.Migrations.CreatTableforidentity.resources
 D:\My learn work\Autheriz_Project\Autheriz_Project\obj\Debug\Autheriz_Project.csproj.GenerateResource.cache
+D:\My learn work\Autheriz_Project\Autheriz_Project\obj\Debug\Autheriz_Project.csproj.CoreCompileInputs.cache
+D:\My learn work\Autheriz_Project\Autheriz_Project\obj\Debug\Autheriz.CB395A8D.Up2Date
+D:\My learn work\Autheriz_Project\Autheriz_Project\obj\Debug\Autheriz_Project.dll
+D:\My learn work\Autheriz_Project\Autheriz_Project\obj\Debug\Autheriz_Project.pdb
